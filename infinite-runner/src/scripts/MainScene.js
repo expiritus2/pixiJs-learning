@@ -2,6 +2,9 @@ import * as PIXI from 'pixi.js';
 import { Background } from './Background';
 import { Platforms } from './Platforms';
 import { Hero } from './Hero';
+import { LabelScore } from './LabelScore';
+import { Globals } from './Globals';
+import { FinalScene } from './FinalScene';
 
 export class MainScene {
     constructor() {
@@ -13,6 +16,15 @@ export class MainScene {
         this.createBackground();
         this.createPlatforms();
         this.createHero();
+        this.createUI();
+    }
+
+    createUI() {
+        this.labelScore = new LabelScore();
+        this.container.addChild(this.labelScore);
+        this.hero.sprite.on('score', () => {
+           this.labelScore.renderScore(this.hero.score);
+        });
     }
 
     createBackground() {
@@ -32,6 +44,10 @@ export class MainScene {
         this.container.on('pointerdown', () => {
             this.hero.startJump();
         });
+
+        this.hero.sprite.once('die', () => {
+            Globals.scene.start(new FinalScene(this.hero.score));
+        })
     }
 
     update(dt) {

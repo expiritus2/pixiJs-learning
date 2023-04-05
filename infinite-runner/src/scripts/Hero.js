@@ -3,6 +3,7 @@ import { Globals } from './Globals';
 
 export class Hero {
     constructor() {
+        this.score = 0;
         this.dy = 0;
         this.jumpIndex = 0;
         this.platform = null;
@@ -17,6 +18,11 @@ export class Hero {
         this.sprite.loop = true;
         this.sprite.animationSpeed = 0.1;
         this.sprite.play();
+    }
+
+    collectDiamond() {
+        ++this.score;
+        this.sprite.emit('score');
     }
 
     startJump() {
@@ -52,9 +58,13 @@ export class Hero {
     }
 
     update() {
-        if(!this.platform) {
+        if (!this.platform) {
             ++this.dy;
             this.sprite.y += this.dy;
+        }
+
+        if (this.sprite.y > window.innerHeight) {
+            this.sprite.emit('die');
         }
     }
 

@@ -1,3 +1,4 @@
 export const Globals = {
-    resources: {}
+    resources: {},
+    scene: null
 };
