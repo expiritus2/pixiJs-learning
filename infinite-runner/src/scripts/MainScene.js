@@ -28,10 +28,15 @@ export class MainScene {
     createHero() {
         this.hero = new Hero();
         this.container.addChild(this.hero.sprite);
+        this.container.interactive = true;
+        this.container.on('pointerdown', () => {
+            this.hero.startJump();
+        });
     }
 
     update(dt) {
         this.bg.update(dt);
+        this.platforms.checkCollision(this.hero);
         this.platforms.update(dt);
         this.hero.update(dt);
     }

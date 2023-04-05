@@ -57,6 +57,12 @@ export class Platforms {
 
         this.platforms.forEach((platform) => {
             platform.move();
+        });
+    }
+
+    checkCollision(hero) {
+        this.platforms.forEach((platform) => {
+            platform.checkCollision(hero)
         })
     }
 }
