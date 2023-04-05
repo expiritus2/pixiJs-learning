@@ -50,7 +50,7 @@ export class Platforms {
         });
     }
 
-    update(dt) {
+    update() {
         if (this.current.right < window.innerWidth) {
             this.createPlatform(this.randomData);
         }
